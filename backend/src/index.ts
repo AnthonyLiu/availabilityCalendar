@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
+import { MainRouter } from './routes';
 
 // initialize configs
 dotenv.config();
@@ -7,10 +8,7 @@ dotenv.config();
 const port = process.env.SERVER_PORT;
 const app = express();
 
-// define a route handler for the default home page
-app.get("/", (req, res) => {
-  res.send("Sample response");
-});
+app.use('/api', MainRouter);
 
 // start the Express server
 app.listen(port, () => {
