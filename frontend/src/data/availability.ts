@@ -14,7 +14,7 @@ interface UserAvailability {
 
 
 // get data for fronted
-export const getAvailabilityByUserAndWeek = (userId: string, weekNumber: string): Availability | string => {
+export const getAvailabilityByUserAndWeek = (userId: string, year: string, weekNumber: string): Availability | string => {
   let responseData: UserAvailability;
 
   try {
