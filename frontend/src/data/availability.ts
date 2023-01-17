@@ -1,6 +1,6 @@
 import availability from "./fixtures/availability.json";
 
-type Availability = {
+export type Availability = {
   [key: string]: 'y' | 'n' | 'booked' // TODO: this value might only need 'y' or 'booked'
 }
 
@@ -14,13 +14,13 @@ interface UserAvailability {
 
 
 // get data for fronted
-export const getAvailabilityByUserAndWeek = (userId: string, weekNumber: string): UserAvailability | string => {
+export const getAvailabilityByUserAndWeek = (userId: string, weekNumber: string): Availability | string => {
   let responseData: UserAvailability;
 
   try {
     // TODO: should getting data from the backend API
     responseData = availability as UserAvailability;
-    return responseData;
+    return responseData?.availability;
   } catch (error) {
     // TODO: should use proper error logger
     console.log('Cannot get response from server', error)
