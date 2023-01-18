@@ -1,12 +1,23 @@
 table {
   width: 80%;
   border-collapse: collapse;
-}
-
-th, td {
-  border: 1px solid;
+  margin: auto;
 }
 
 tr {
   width: 100%;
+}
+
+td {
+  border: 1px solid black;
+  color: transparent;
+}
+
+/* this should use a global style and color variable for app level consistence */
+.green {
+  background-color: lightgreen;
+}
+
+.red {
+  background-color: lightcoral;
 }

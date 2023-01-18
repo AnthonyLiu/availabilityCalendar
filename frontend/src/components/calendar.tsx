@@ -12,7 +12,7 @@ type CalendarProps = {
 const Calendar = (props: CalendarProps) => {
   const year = parseInt(props.year);
   const weekNumber = parseInt(props.weekNumber);
-  const availability = props.availability;
+  let availability = props.availability;
 
   // get the week from year and week number
   const dt = DateTime.fromObject({
@@ -23,22 +23,46 @@ const Calendar = (props: CalendarProps) => {
   const availabilityTimeFormat = 'yyyyMMddHH';
 
   const weekStartTime = dt.startOf('week');
-  console.log(weekStartTime.toUTC().toFormat(availabilityTimeFormat));
-  // const weekStartTimeStr = parseInt(weekStart.toUTC().toFormat(availabilityTimeFormat));
 
+
+  type WeekCalendarList = {
+    [key: string]: {
+      [key: string]: {
+        timeString: string;
+        availability: string;
+      }
+    }
+  }
   // build calendar object
-  let weekTimes: {[key: number]: string} = {};
+  let weekCalendarData: WeekCalendarList = {};
 
   // loop hours, if break down to 15 mins, this logic need to update
   for (let t = 0; t < 168; t++) {
-    console.log(`t: ${t}`)
-    const timeString = weekStartTime.plus({ hours: t }).toFormat(availabilityTimeFormat);
-
-    console.log(`timeString: ${timeString}`)
+    const newTime = weekStartTime.plus({ hours: t });
+    const timeString = newTime.toFormat(availabilityTimeFormat);
 
     const availabilityStatus = availability[timeString] ?? 'n';
-    console.log(availabilityStatus);
-    weekTimes[timeString] = availabilityStatus;
+
+    // init the first level objects
+    if (weekCalendarData[newTime.hour.toString()] === undefined) {
+      weekCalendarData[newTime.hour.toString()] = {};
+    }
+    // add value to the calendar object
+    weekCalendarData[newTime.hour.toString()][newTime.weekday.toString()] = {
+      timeString,
+      availability: availabilityStatus
+    };
+  }
+
+  const getStatusClassName = (availabilityString: string): string => {
+    switch (availabilityString) {
+      case 'y':
+        return styles.green;
+      case 'booked':
+        return styles.red
+      default:
+        return '';
+    }
   }
 
   /**
@@ -47,19 +71,33 @@ const Calendar = (props: CalendarProps) => {
    */
   return <div>
     <h2>Availability Calendar</h2>
-    {JSON.stringify(availability)}
-    {JSON.stringify(weekTimes)}
     <table className={styles.table}>
-      <th>
-        <td>Mon</td>
-        <td>Tue</td>
-        <td>Wed</td>
-        <td>Thu</td>
-        <td>Fri</td>
-        <td>Sat</td>
-        <td>Sun</td>
-      </th>
-
+      <tr>
+        <th>Mon</th>
+        <th>Tue</th>
+        <th>Wed</th>
+        <th>Thu</th>
+        <th>Fri</th>
+        <th>Sat</th>
+        <th>Sun</th>
+      </tr>
+      {
+        Object.values(weekCalendarData).map((value, index) => {
+          // Could use loop here to save coding, but I feels this is more clear and UI might have different design on weekdays
+          return <tr>
+            {
+              [...Array(7)].map((x, i) => {
+                console.log(i+1);
+                console.log(value[(i + 1).toString()]);
+                return <td className={getStatusClassName(value[(i + 1).toString()].availability)}>
+                    {value[(i + 1).toString()].timeString}
+                    {value[(i + 1).toString()].availability}
+                  </td>;
+              })
+            }
+          </tr>
+        })
+      }
     </table>
     </div>
 }
