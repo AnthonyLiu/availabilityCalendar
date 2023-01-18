@@ -20,10 +20,19 @@ const Calendar = (props: CalendarProps) => {
     weekNumber: weekNumber
   });
 
+  // this should be defined in a global file and shared between functions or even projects
+  enum weekdayShortName {
+    Mon = 'Mon',
+    Tue = 'Tue',
+    Wed = 'Wed',
+    Thu = 'Thu',
+    Fri = 'Fri',
+    Sat = 'Sat',
+    Sun = 'Sun'
+  };
+
   const availabilityTimeFormat = 'yyyyMMddHH';
-
   const weekStartTime = dt.startOf('week');
-
 
   type WeekCalendarList = {
     [key: string]: {
@@ -73,13 +82,9 @@ const Calendar = (props: CalendarProps) => {
     <h2>Availability Calendar</h2>
     <table className={styles.table}>
       <tr>
-        <th>Mon</th>
-        <th>Tue</th>
-        <th>Wed</th>
-        <th>Thu</th>
-        <th>Fri</th>
-        <th>Sat</th>
-        <th>Sun</th>
+        {Object.values(weekdayShortName).map(dayName => {
+          return <th>{dayName}</th>;
+        })}
       </tr>
       {
         Object.values(weekCalendarData).map((value, index) => {
