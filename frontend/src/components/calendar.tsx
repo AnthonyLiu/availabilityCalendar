@@ -82,6 +82,7 @@ const Calendar = (props: CalendarProps) => {
     <h2>Availability Calendar</h2>
     <table className={styles.table}>
       <tr>
+        <td className={styles['time-indicator']}></td>
         {Object.values(weekdayShortName).map(dayName => {
           return <th>{dayName}</th>;
         })}
@@ -91,13 +92,17 @@ const Calendar = (props: CalendarProps) => {
           // Could use loop here to save coding, but I feels this is more clear and UI might have different design on weekdays
           return <tr>
             {
-              [...Array(7)].map((x, i) => {
-                console.log(i+1);
-                console.log(value[(i + 1).toString()]);
-                return <td className={getStatusClassName(value[(i + 1).toString()].availability)}>
-                    {value[(i + 1).toString()].timeString}
-                    {value[(i + 1).toString()].availability}
-                  </td>;
+              [...Array(8)].map((x, i) => {
+                if (i === 0) {
+                  // display hourly time at the most left of the table for user
+                  return (<td className={styles['time-indicator']}>
+                      <div className={styles['time-indicator-div']}>{value[(i+1).toString()].timeString.slice(-2)}</div>
+                    </td>);
+                } else {
+                  return <td className={getStatusClassName(value[(i).toString()].availability)}>
+                      {value[(i).toString()].timeString}
+                    </td>;
+                }
               })
             }
           </tr>

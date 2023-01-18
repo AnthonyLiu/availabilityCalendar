@@ -11,6 +11,16 @@ tr {
 td {
   border: 1px solid black;
   color: transparent;
+  height: 25px;
+}
+
+.time-indicator {
+  border: 1px solid transparent;
+  color: black;
+}
+
+.time-indicator-div {
+  margin-top: -25px;
 }
 
 /* this should use a global style and color variable for app level consistence */
