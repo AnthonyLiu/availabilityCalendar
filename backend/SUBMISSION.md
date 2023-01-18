@@ -50,6 +50,27 @@ The shortcoming of this data format is,
 As my data format design, I would choose NoSQL DB For data storage, eg. dynamoDB.
 For time frame, I would use mysql for demo.
 
+## Discussion on the Request Payload
+For the API payload, I am not sure whether I could change it or not. This is the request format
+```
+For submitting availability:
+
+{
+  "userId": 123456,
+  "weekNumber": 1,
+  "availability": "up to you"
+}
+For retrieving a Guide's availability:
+
+{
+  "userId": 123456
+}
+```
+Here are some my personal opinions,
+1, add 'year' in the submitting API (POST), eg. the Guide might want to set availability for the next year while in the end of the year
+2, moving 'userId' in the url is more restful, it's better if the API might open to third parties.
+3, we could keep 'year' and 'weekNumber' in the payload, for the reason the API might support multiple weeks, but the payload format need to updated
+4, in retrieving API (get), might move 'userId' to url too. And make 'year', 'weekNumber' as mandatory payload. Because we don't want user request all the availability, this doesn't make sense and cost more on server if we don't delete the expired availability.
 
 ## Answers For Bonus Points
 For bonus points, consider tackling one or more of these complications:

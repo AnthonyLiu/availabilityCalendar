@@ -6,7 +6,7 @@ const router: Router = Router();
  * create a new availability
  */
 // TODO: need authentication before creating, create an auth service is a good method
-router.post('/availability', (req: Request, res: Response, next: NextFunction) => {
+router.post('/', (req: Request, res: Response, next: NextFunction) => {
   if (!req.body.userId || !req.body.weekNumber || !req.body.availability) {
     /**
      * For error messages,
