@@ -16,6 +16,13 @@ All selections would store in a state for frontend only.
 It's need a button to submit the selection (availability object) to API.
 
 
+## Limitation in Demo
+1, UX and UI could be improved, eg. should not use the most left column as time indicator. I only make a simple view here.
+2, I prefer to have integration tests, but the backend is not ready yet
+3, I prefer to have end to end (e2e) tests using cypress
+4, I would prefer to have coverage report
+5, Unit test could be more to increase the coverage, but there are only a few for demo purpose
+
 ## Answers For Bonus Points
 * Can you render a Guide's availability in some sort of calendar-like presentation?
 Designed as calendar like table. In next step, user could selected their available time by clicking or dragging and releasing.
