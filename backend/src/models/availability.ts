@@ -2,7 +2,7 @@ import sequelize from "./db-connection";
 import { DataTypes } from "sequelize";
 
 export type Availability = {
-  [key: string]: 'y' | 'n' | 'booked' // TODO: this value might only need 'y' or 'booked'
+  [key: string]: 'y' | 'n' | 'booked' // TODO: this value might only need 'y' or 'booked', this is debatable to have a better value
 }
 
 // multiple-column PRIMARY KEY, means a user have only one record for each week in a year
