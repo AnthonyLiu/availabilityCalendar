@@ -3,20 +3,20 @@ export type Availability = {
 }
 
 export interface IAvailabilityModel {
-  create(id: string, weekNumber: number, availability: Availability): boolean;
+  create(id: string, year:number, weekNumber: number, availability: Availability): boolean;
+  get(id: string, year: number, weekNumber: number): Availability;
+  update(id: string, year:number, weekNumber: number, availability: Availability): boolean;
 }
 
-export const create = (userId: string, weekNumber: number, availability: Availability) => {
-  // TODO: validate if user id is correct
-  // TODO: validate if weekNumber is valid, eg. throw error if it's larger than 52
-  // TODO: validate if this user had a availability
+export const create = (userId: string, year: number, weekNumber: number, availability: Availability) => {
   // TODO: create a record in DB
   return true;
 }
 
-export const update = (userId: string, weekNumber: number, availability: Availability) => {
-  // TODO: validate if user id is correct
-  // TODO: validate if weekNumber is valid, eg. throw error if it's larger than 52
-  // TODO: update the record in DB
+export const get = (userId: string, year: number, weekNumber: number) => {
+  return {};
+}
+
+export const update = (userId: string, year: number, weekNumber: number, availability: Availability) => {
   return true;
 }
