@@ -26,19 +26,18 @@ AvailabilityModel.sync();
 
 // This could be abstracted to another layer. I just leave it here for this demo.
 export interface IAvailabilityModel {
-  create(userId: string, year:number, weekNumber: number, availability: Availability): boolean;
+  create(userId: string, year: number, weekNumber: number, availability: Availability): Promise<boolean>;
   get(userId: string, year: number, weekNumber: number): Availability;
   update(userId: string, year:number, weekNumber: number, availability: Availability): boolean;
 }
 
-export const create = (userId: string, year: number, weekNumber: number, availability: Availability): boolean => {
+export const create = async (userId: string, year: number, weekNumber: number, availability: Availability): Promise<boolean> => {
+  let isSuccess: boolean; // This is a little bit raw, should be improved later
   /**
    * There should be user table, it's required to valid if the userId is existing in DB, this foreign key validation should be in model level
    * Validation of year, week and availability should be in route, which includes business level logic
    */
-  /* tslint:disable-next-line no-console*/
-  console.log(`in availability model create`)
-  AvailabilityModel.create({
+  await AvailabilityModel.create({
     userId,
     year,
     weekNumber,
@@ -46,16 +45,16 @@ export const create = (userId: string, year: number, weekNumber: number, availab
   }).then((record) => {
     // should use a proper multi level logger
     /* tslint:disable-next-line no-console*/
-    console.log(`Availability created: ${record}`)
-    return true;
+    console.log(`Availability created: ${JSON.stringify(record)}`)
+    isSuccess = true;
   }).catch((err) => {
     // should use a proper multi level logger
     /* tslint:disable-next-line no-console*/
     console.log(`Availability create error: ${err}`)
-    return false;
+    isSuccess = false;
   })
 
-  return false;
+  return isSuccess;
 }
 
 export const get = (userId: string, year: number, weekNumber: number) => {

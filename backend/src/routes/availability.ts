@@ -6,7 +6,7 @@ const router: Router = Router();
  * create a new availability
  */
 // TODO: need authentication before creating, create an auth service is a good method
-router.post('/', (req: Request, res: Response, next: NextFunction) => {
+router.post('/', async (req: Request, res: Response, next: NextFunction) => {
   if (!req.body.userId || !req.body.year || !req.body.weekNumber  || !req.body.availability) {
     /**
      * For error messages,
@@ -22,11 +22,9 @@ router.post('/', (req: Request, res: Response, next: NextFunction) => {
 
   const year = parseInt(req.body.year, 10);
   const weekNumber = parseInt(req.body.weekNumber, 10);
-  /* tslint:disable-next-line no-console*/
-  console.log(`type111: ${typeof req.body.availability}`)
 
   // user model to create record in DB
-  const isCreated = AvailabilityModel.create(req.body.userId, year, weekNumber, req.body.availability);
+  const isCreated = await AvailabilityModel.create(req.body.userId, year, weekNumber, req.body.availability);
 
   // TODO: need to be optimised with returning proper error messages
   if (isCreated) {

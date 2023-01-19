@@ -17,10 +17,12 @@ const sequelize = new Sequelize("mydb", "user", "user", settings);
 sequelize
   .authenticate()
   .then(() => {
+    // should use a proper multi level logger
     /* tslint:disable-next-line no-console*/
     console.log('Connected successfully.'); // here should use a proper logger, just use console in demo
   })
   .catch((err) => {
+    // should use a proper multi level logger
     /* tslint:disable-next-line no-console*/
     console.log('Unable to connect to the database:', err);
   });
