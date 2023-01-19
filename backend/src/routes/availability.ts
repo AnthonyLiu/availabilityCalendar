@@ -6,8 +6,8 @@ const router: Router = Router();
  * create a new availability
  */
 // TODO: need authentication before creating, create an auth service is a good method
-router.post('/', (req: Request, res: Response, next: NextFunction) => {
-  if (!req.body.userId || !req.body.weekNumber || !req.body.availability) {
+router.post('/:userId', (req: Request, res: Response, next: NextFunction) => {
+  if (!req.body.weekNumber || !req.body.availability) {
     /**
      * For error messages,
      * 1, if this is BFF layer and only serve one frontend, I prefer to give readable messages, then the frontend don't need to process the message again
