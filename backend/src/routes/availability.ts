@@ -6,16 +6,14 @@ const router: Router = Router();
  * create a new availability
  */
 // TODO: need authentication before creating, create an auth service is a good method
-router.post('/:userId', (req: Request, res: Response, next: NextFunction) => {
-  const userId = req.params.userId;
-
-  if (!req.body.year || !req.body.weekNumber  || !req.body.availability) {
+router.post('/', (req: Request, res: Response, next: NextFunction) => {
+  if (!req.body.userId || !req.body.year || !req.body.weekNumber  || !req.body.availability) {
     /**
      * For error messages,
      * 1, if this is BFF layer and only serve one frontend, I prefer to give readable messages, then the frontend don't need to process the message again
      * 2, if this is a public API, I would prefer to give a generic message because different frontend might have different request on show messages
      */
-    return res.status(422).json({ errors: { message: "year, weekNumber and availability are mandatory parameter" } });
+    return res.status(422).json({ errors: { message: "userId, year, weekNumber and availability are mandatory parameter" } });
   }
 
   /**
@@ -28,7 +26,7 @@ router.post('/:userId', (req: Request, res: Response, next: NextFunction) => {
   console.log(`type111: ${typeof req.body.availability}`)
 
   // user model to create record in DB
-  const isCreated = AvailabilityModel.create(userId, year, weekNumber, req.body.availability);
+  const isCreated = AvailabilityModel.create(req.body.userId, year, weekNumber, req.body.availability);
 
   // TODO: need to be optimised with returning proper error messages
   if (isCreated) {

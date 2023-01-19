@@ -68,10 +68,8 @@ For retrieving a Guide's availability:
 ```
 Here are some my personal opinions,\
 1, add 'year' in the submitting API (POST), eg. the Guide might want to set availability for the next year while in the end of the year\
-2, moving 'userId' in the url is more restful, it's better if the API might open to third parties.\
-3, we could keep 'year' and 'weekNumber' in the payload, for the reason the API might support multiple weeks, but the payload format need to updated\
-4, in retrieving API (get), might move 'userId' to url too. And make 'year', 'weekNumber' as mandatory payload. Because we don't want user request all the availability, this doesn't make sense and cost more on server if we don't delete the expired availability.\
-* These url parameters are only good if there are restful API and the API is potentially open to others. If this is a backend for frontend (BFF) layer and using GraphQL, no need change 'userId' to the url parameter\
+2, in retrieving API (get), move 'userId' to url. And make 'year', 'weekNumber' as mandatory payload. Because we don't want user request all the availability, this doesn't make sense and cost more on server if we don't delete the expired availability.\
+* Moving userId to url parameters is only good if there are restful API and the API is potentially open to others. If this is a backend for frontend (BFF) layer and using GraphQL, no need change 'userId' to the url parameter\
 
 ## Answers For Bonus Points
 For bonus points, consider tackling one or more of these complications:
