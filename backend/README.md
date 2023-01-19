@@ -1,3 +1,4 @@
+![Screenshot 2023-01-19 230549](https://user-images.githubusercontent.com/830979/213442701-69f31665-3406-4d8a-b0de-45a1879fe3f5.png)
 
 ## Available Scripts
 
@@ -15,7 +16,7 @@ Database: mydb
 
 ### `npm run start`
 
-Runs the app in the http://localhost:3007.\
+Runs the app in the http://localhost:3007
 
 
 ### `npm run dev`
